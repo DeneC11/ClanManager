@@ -66,7 +66,7 @@ $miembros = $stmt->fetchAll();
   </style>
 </head>
 
-<body class="bg-dark text-light">
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
 
   <?php include 'navbar.php'; ?>
 

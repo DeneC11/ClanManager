@@ -1,0 +1,22 @@
+/clanmanager
+│
+├── index.php          → Landing/Home
+├── login.php          → Página de login
+├── register.php       → Página de registro
+├── dashboard.php      → Panel principal del clan
+├── clanSelect.php     → Paso intermedio: crear o unirse a un clan
+├── createClan.php     → Formulario para crear un clan
+├── joinClan.php       → Listado de clanes para unirse
+├── clanMembers.php    → Gestión de miembros
+├── clanPartys.php     → Gestor de partys
+├── clanDkps.php       → Gestión de DKPs
+├── clanSettings.php   → Configuración del clan
+├── profile.php        → Perfil de usuario
+├── logout.php         → Cierre de sesión
+│
+├── /assets
+│   ├── /css
+│   │   └── styles.css
+│   ├── /img
+│   └── /js
+│       └── main.js

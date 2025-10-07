@@ -4,6 +4,7 @@ require 'conexion.php';
 requireLogin();
 $idClan = $_SESSION['idClan'];
 $rol = $_SESSION['rolClan'];
+// echo $rol;
 $stmt = $pdo->prepare("
   SELECT u.id, u.username, m.role, m.gameRole
   FROM clanmembers m
@@ -31,7 +32,7 @@ $miembros = $stmt->fetchAll();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
-<body class="bg-dark text-light">
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
 
   <?php include 'navbar.php'; ?> <!-- opcional si luego extraes la navbar -->
 

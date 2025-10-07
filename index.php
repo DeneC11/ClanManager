@@ -12,7 +12,7 @@ require 'conexion.php';
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-light">
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
 
   <!-- Navbar simplificada -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">

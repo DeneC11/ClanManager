@@ -5,23 +5,25 @@ requireLogin();
 // print_r($_SESSION);
 // exit;
 // Array ( [csrfToken] => 804880e6f2f07b94d4d0a03c5ec8a3e0aff427a89970db18c160ac7730dc2bc1 [usuario_id] => 2 [username] => lider1 [email] => lider1@mail.com )
-$idUsuario=$_SESSION['usuario_id'];
+$idUsuario = $_SESSION['usuario_id'];
 // obtener clan del usuario
-$sql="SELECT c.name, c.description, c.id, m.role FROM clanmembers m JOIN clans c ON m.idClan=c.id WHERE m.idUser=?";
-$stmt=$pdo->prepare($sql);
+$sql = "SELECT c.name, c.description, c.id, m.role FROM clanmembers m JOIN clans c ON m.idClan=c.id WHERE m.idUser=?";
+$stmt = $pdo->prepare($sql);
 $stmt->execute([$idUsuario]);
-$resultados=$stmt->fetch();
-$_SESSION['idClan']=$resultados['id'];
+$resultados = $stmt->fetch();
+$_SESSION['idClan'] = $resultados['id'];
 $_SESSION['rolClan'] = $resultados['role'];
-if(!$resultados){  
+if (!$resultados) {
   // Redirigir a clanSelect.php si no pertenece a ningún clan
   header("Location: clanSelect.php");
   exit;
 }
 // Array ( [0] => Array ( [id] => 2 [name] => clan2 [description] => descripcion del clan2 [logo] => [idLeader] => 1 ) )
+// print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,23 +33,47 @@ if(!$resultados){
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-light">
+
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
 
   <!-- Navbar completa -->
-    <?php include 'navbar.php'; ?> <!-- opcional si luego extraes la navbar -->
+  <?php include 'navbar.php'; ?> <!-- opcional si luego extraes la navbar -->
 
 
   <!-- Header de bienvenida -->
   <header class="py-5 text-center">
     <div class="container">
-      <h1 class="fw-bold">Bienvenido <?= $_SESSION['username'] ?> a <?= $resultados['name'] ?></h1>
-      <p class="text-secondary"><?= $resultados['description'] ?></p>
-      <p class="text-secondary">Gestiona tu clan, organiza partys y controla los DKPs desde un solo lugar.</p>
+      <!-- Nombre del clan destacado -->
+      <h1 class="fw-bold text-primary mb-3 text-capitalize">
+        <i class="bi bi-shield-fill-check me-2"></i>
+        <?= htmlspecialchars($resultados['name']) ?>
+      </h1>
+
+      <!-- separacion -->
+      <!-- <div class="text-center my-1">
+        <span class="text-muted">— o —</span>
+      </div> -->
+
+      <!-- Datos del usuario -->
+      <div class="bg-dark border border-secondary rounded p-3 d-inline-block">
+        <h4 class="text-light mb-1">
+          <i class="bi bi-person-circle me-2"></i>
+          <?= htmlspecialchars($_SESSION['username']) ?>
+        </h4>
+        <p class="text-secondary mb-0">
+          Rol actual: <strong><?= ucfirst($_SESSION['rolClan']) ?></strong>
+        </p>
+        <?php if (!empty($usuario['fecha_ingreso'])): ?>
+          <p class="text-muted small">Miembro desde <?= date('d/m/Y', strtotime($usuario['fecha_ingreso'])) ?></p>
+        <?php endif; ?>
+      </div>
+
     </div>
   </header>
 
+
   <!-- Accesos rápidos -->
-  <section class="py-5">
+  <section class="py-2">
     <div class="container ">
       <div class="row g-4 text-center ">
         <div class="col-md-4">
@@ -115,4 +141,5 @@ if(!$resultados){
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
